@@ -105,6 +105,7 @@ function selectFileImage(fileObj) {
 					base64 = canvas.toDataURL("image/jpeg", 0.8);
 				}
 				//uploadImage(base64);
+				alert('base64:'+base64)
 				$("#myImage").attr("src", base64);
 			};
 		};
