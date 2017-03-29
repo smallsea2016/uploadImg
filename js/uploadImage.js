@@ -2,8 +2,9 @@ function selectFileImage(fileObj) {
 	var file = fileObj.files['0'];
 	//图片方向角 added by lzk
 	var Orientation = null;
-	
+	alert(1);
 	if (file) {
+		alert(2);
 		console.log("正在上传,请稍后...");
 		var rFilter = /^(image\/jpeg|image\/png)$/i; // 检查图片格式
 		if (!rFilter.test(file.type)) {
@@ -22,11 +23,13 @@ function selectFileImage(fileObj) {
 		
 		var oReader = new FileReader();
 		oReader.onload = function(e) {
+			alert(3);
 			//var blob = URL.createObjectURL(file);
 			//_compress(blob, file, basePath);
 			var image = new Image();
 			image.src = e.target.result;
 			image.onload = function() {
+				alert(4);
 				var expectWidth = this.naturalWidth;
 				var expectHeight = this.naturalHeight;
 				
