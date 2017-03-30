@@ -2,9 +2,9 @@ function selectFileImage(fileObj) {
 	var file = fileObj.files['0'];
 	//图片方向角 added by lzk
 	var Orientation = null;
-	alert(1);
+	// alert(1);
 	if (file) {
-		alert(2);
+		// alert(2);
 		console.log("正在上传,请稍后...");
 		var rFilter = /^(image\/jpeg|image\/png)$/i; // 检查图片格式
 		if (!rFilter.test(file.type)) {
@@ -23,13 +23,22 @@ function selectFileImage(fileObj) {
 		
 		var oReader = new FileReader();
 		oReader.onload = function(e) {
-			alert(3);
+			// alert(3);
 			//var blob = URL.createObjectURL(file);
 			//_compress(blob, file, basePath);
 			var image = new Image();
 			image.src = e.target.result;
 			image.onload = function() {
-				alert(4);
+				//打印照片信息
+				EXIF.getData(image, function() {
+				   alert('获取图像的拍摄场景:'+EXIF.getTag(this,'SceneType')+'\n场景拍摄类型：'+EXIF.getTag(this,'SceneCaptureType'));
+				    EXIF.getAllTags(this); 
+				    //alert(EXIF.getTag(this, 'Orientation')); 
+				    Orientation = EXIF.getTag(this, 'Orientation');
+				    //return;
+				});
+
+				// alert(4);
 				var expectWidth = this.naturalWidth;
 				var expectHeight = this.naturalHeight;
 				
@@ -105,7 +114,7 @@ function selectFileImage(fileObj) {
 					base64 = canvas.toDataURL("image/jpeg", 0.8);
 				}
 				//uploadImage(base64);
-				alert('base64:'+base64)
+				// alert('base64:'+base64)
 				$("#myImage").attr("src", base64);
 			};
 		};
